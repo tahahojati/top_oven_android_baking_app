@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-</android.support.constraint.ConstraintLayout>
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+    <fragment
+        android:layout_width="@dimen/master_list_width"
+        android:layout_height="match_parent"
+        android:name="com.tpourjalali.RecipeStepListFragment"
+        android:id="@+id/step_list_fragment"/>
+    <fragment
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:id="@+id/step_detail_fragment"
+        android:name="com.tpourjalali.RecipeStepDetailFragment" />
+</LinearLayout>

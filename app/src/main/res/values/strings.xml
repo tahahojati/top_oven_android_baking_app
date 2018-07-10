@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">TopOven</string>
+    <string name="next_recipe_step_content_description">next step</string>
+    <string name="previous_recipe_step_content_description">previous step</string>
 </resources>
