@@ -28,4 +28,6 @@ First make layouts for the fragments then combine them for the activity.
 - [ ] Create image resources for the next and previous buttons of activity_recipe_step_detail.xml
 - [ ] Create RecipeStepDetailFragment
 - [ ] Create RecipeStepListFragment
+- [ ] Add a splash screen activity that checks for the online resource
+- [ ] Add retrofit to the application
 - [x] Finish UIs: activity recipe_steps.
