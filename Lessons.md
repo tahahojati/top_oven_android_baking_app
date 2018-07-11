@@ -15,11 +15,11 @@ First make layouts for the fragments then combine them for the activity.
 - [ ]
 - [ ]
 - [ ]
+- [ ] integrate retrofit
 - [ ]
 - [ ]
 - [ ]
-- [ ]
-- [ ]
+- [ ] generate all fragments and activities and assign the appropriate views to them: SplashScreenActivity, MainActivity, RecipeStepDetailActivity, RecipeActivity, RecipeStepDetailFragment, RecipeStepListFragment, 
 - [ ] Enable databinding.
 - [ ] Create all activity and fragment classes and connect them to UIs. 
 - [ ] Create RecipeStepDetailFragment
@@ -28,6 +28,6 @@ First make layouts for the fragments then combine them for the activity.
 - [ ] Create image resources for the next and previous buttons of activity_recipe_step_detail.xml
 - [ ] Create RecipeStepDetailFragment
 - [ ] Create RecipeStepListFragment
-- [ ] Add a splash screen activity that checks for the online resource
-- [ ] Add retrofit to the application
+- [x] Add a splash screen activity that checks for the online resource
+- [x] Add retrofit to the application
 - [x] Finish UIs: activity recipe_steps.

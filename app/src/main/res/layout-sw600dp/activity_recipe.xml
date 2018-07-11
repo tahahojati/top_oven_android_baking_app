@@ -2,16 +2,21 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/container_layout"
     android:orientation="horizontal">
     <fragment
         android:layout_width="@dimen/master_list_width"
         android:layout_height="match_parent"
-        android:name="com.tpourjalali.RecipeStepListFragment"
+        android:name="com.tpourjalali.topoven.RecipeStepListFragment"
         android:id="@+id/step_list_fragment"/>
+    <View
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:background="@android:color/darker_gray" />
     <fragment
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:id="@+id/step_detail_fragment"
-        android:name="com.tpourjalali.RecipeStepDetailFragment" />
+        android:name="com.tpourjalali.topoven.RecipeStepDetailFragment" />
 </LinearLayout>
