@@ -5,12 +5,12 @@ package com.tpourjalali.topoven;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.TextView;
 
+
+/**
+ * fetch the recipe from the repo, check if it has video and if we are connected to internet, if so, stream the video, else, disable the player.
+ */
 public class RecipeActivity extends AppCompatActivity implements RecipeStepDetailFragment.CallBacks, RecipeStepListFragment.CallBacks {
 
     private boolean mTwoPane = false;
@@ -25,7 +25,7 @@ public class RecipeActivity extends AppCompatActivity implements RecipeStepDetai
             mTwoPane = false;
         } else {
             //tablet, have RecipeStepListFragment and RecipeStepDetailFragment
-            mTwoPane = true; 
+            mTwoPane = true;
         }
 
 
