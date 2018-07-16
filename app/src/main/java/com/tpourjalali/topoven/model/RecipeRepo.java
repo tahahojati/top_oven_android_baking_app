@@ -27,7 +27,7 @@ public final class RecipeRepo {
     public void updateRepo(){}
     public String getJson(){return null;}
     public List<Recipe> getRecipeList(){return null;}
-    public Recipe getRecipe(int index){return null;}
+    public Recipe getRecipe(int index){return new Recipe();}
     public int getRecipeCount(){return 0;}
 
 }

@@ -12,10 +12,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity" />
-        <activity android:name=".RecipeActivity" />
-        <activity android:name=".SplashScreenActivity" />
+        <activity android:name=".RecipeStepDetailActivity" />
+        <activity android:name=".SplashScreenActivity"
+            android:configChanges="screenSize|orientation"/>
         <!--TODO: set launch intent to Splash screen activity.-->
-        <activity android:name=".RecipeStepDetailActivity"
+        <activity android:name=".RecipeActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

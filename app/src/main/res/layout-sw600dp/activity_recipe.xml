@@ -4,16 +4,16 @@
     android:layout_height="match_parent"
     android:id="@+id/container_layout"
     android:orientation="horizontal">
-    <fragment
+    <FrameLayout
         android:layout_width="@dimen/master_list_width"
         android:layout_height="match_parent"
         android:name="com.tpourjalali.topoven.RecipeStepListFragment"
-        android:id="@+id/step_list_fragment"/>
+        android:id="@+id/recipe_step_list_fragment"/>
     <View
         android:layout_width="1dp"
         android:layout_height="match_parent"
         android:background="@android:color/darker_gray" />
-    <fragment
+    <FrameLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"

@@ -19,8 +19,6 @@ public class SplashScreenActivity extends AppCompatActivity{
         //create an intent service that calls RecipeRepo.updateRepo()
         //set up a broadcast receiver that listens to the service.
         //check if number of recipe's is greater than 0 if so go to the next activity.
-
-
         setContentView(R.layout.activity_splash_screen);
     }
 }

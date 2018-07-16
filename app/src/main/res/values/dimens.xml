@@ -2,4 +2,14 @@
 <resources>
     <dimen name="margin_2">5dp</dimen>
     <dimen name="master_list_width">300dp</dimen>
+    <dimen name="mp_1">3dp</dimen>
+    <dimen name="mp_2">5dp</dimen>
+    <dimen name="mp_3">10dp</dimen>
+    <dimen name="mp_0">0dp</dimen>
+    <dimen name="btn_s_1">44dp</dimen>
+    <dimen name="btn_s_2">65dp</dimen>
+    <dimen name="btn_s_3">90dp</dimen>
+
+    <dimen name="default_card_elevation">5dp</dimen>
+
 </resources>

@@ -1,11 +1,16 @@
 package com.tpourjalali.topoven.model;
 
+import android.os.Parcelable;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Recipe {
+public class Recipe implements Serializable{
     //TODO: remove all of these defaults.
     @SerializedName("name")
     private String mName = "Nutella Pie";
@@ -14,9 +19,9 @@ public class Recipe {
     @SerializedName("image")
     private String mImage = "" ;
     @SerializedName("steps")
-    private List<RecipeStep> mRecipeSteps = new ArrayList<RecipeStep>(3);
+    private List<RecipeStep> mRecipeSteps = new ArrayList<>(3);
     @SerializedName("ingredients")
-    private List<Ingredient> mIngredients;
+    private List<Ingredient> mIngredients = new ArrayList<>(2);
     public Recipe(){
         mRecipeSteps.add(new RecipeStep());
         mRecipeSteps.add(new RecipeStep());
@@ -40,7 +45,7 @@ public class Recipe {
     public void setServings(int servings) {
         mServings = servings;
     }
-
+    @Nullable
     public String getImage() {
         return mImage;
     }
@@ -49,6 +54,7 @@ public class Recipe {
         mImage = image;
     }
 
+    @NonNull
     public List<RecipeStep> getRecipeSteps() {
         return mRecipeSteps;
     }
@@ -57,6 +63,7 @@ public class Recipe {
         mRecipeSteps = recipeSteps;
     }
 
+    @NonNull
     public List<Ingredient> getIngredients() {
         return mIngredients;
     }
@@ -65,7 +72,7 @@ public class Recipe {
         mIngredients = ingredients;
     }
 
-    public static class Ingredient {
+    public static class Ingredient implements Serializable {
         @SerializedName("quantity")
         private int mQuantity = 3;
         @SerializedName("measure")
@@ -97,7 +104,7 @@ public class Recipe {
             mIngredint = ingredint;
         }
     }
-    public static class RecipeStep {
+    public static class RecipeStep implements Serializable {
         private int mId = 0;
         private String mShortDescription ="Recipe Introduction" ;
         private String mDescription = "Recipe Introduction";
