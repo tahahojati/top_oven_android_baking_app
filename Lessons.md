@@ -2,6 +2,7 @@ Making a Master / Detail layout.
 
 First make layouts for the fragments then combine them for the activity. 
 
+__Important lesson: how to communicate to a fragment managed by a view pager. this can become an article.__
 
 ### Todo list:
 

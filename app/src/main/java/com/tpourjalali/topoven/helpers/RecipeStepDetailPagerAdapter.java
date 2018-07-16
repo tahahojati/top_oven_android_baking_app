@@ -10,7 +10,10 @@ import android.view.ViewGroup;
 import com.tpourjalali.topoven.RecipeStepDetailFragment;
 import com.tpourjalali.topoven.model.Recipe;
 
+import java.lang.ref.WeakReference;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -19,10 +22,18 @@ import java.util.List;
 public class RecipeStepDetailPagerAdapter extends FragmentStatePagerAdapter{
 
     private List<Recipe.RecipeStep> mStepsList = new ArrayList<>();
+    private ArrayList<WeakReference<RecipeStepDetailFragment>> mFragments;
 
     public RecipeStepDetailPagerAdapter(FragmentManager fm) {
         super(fm);
-        isViewFromObject()
+    }
+
+    @Override
+    public Object instantiateItem(ViewGroup container, int position) {
+        RecipeStepDetailFragment frag = (RecipeStepDetailFragment) super.instantiateItem(container, position);
+        //make sure array list has enough items:
+        mFragments.set(position, new WeakReference<>(frag));
+        return frag;
     }
 
     @Override
@@ -36,7 +47,22 @@ public class RecipeStepDetailPagerAdapter extends FragmentStatePagerAdapter{
     }
 
     public void updateData(@Nullable List<Recipe.RecipeStep> recipeStepList) {
-        mStepsList = recipeStepList;
+        ArrayList<Recipe.RecipeStep> temp = new ArrayList<>();
+        if(recipeStepList != null)
+            temp.addAll(recipeStepList);
+        reallocateFragmentList(temp.size());
+        mStepsList = temp;
         notifyDataSetChanged();
+    }
+
+    private void reallocateFragmentList(int size) {
+        mFragments = new ArrayList<>(size);
+        for(int i =0; i < size; ++i)
+            mFragments.add(null);
+    }
+
+    @Nullable
+    public WeakReference<RecipeStepDetailFragment> getFragment(int index) {
+        return mFragments.get(index);
     }
 }

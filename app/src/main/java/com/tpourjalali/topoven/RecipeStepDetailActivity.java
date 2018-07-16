@@ -5,6 +5,7 @@ import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import com.tpourjalali.topoven.model.Recipe;
@@ -16,6 +17,8 @@ import android.widget.TextView;
 
 import com.tpourjalali.topoven.helpers.RecipeStepDetailPagerAdapter;
 import com.tpourjalali.topoven.model.RecipeRepo;
+
+import java.lang.ref.WeakReference;
 
 
 public class RecipeStepDetailActivity extends AppCompatActivity implements RecipeStepDetailFragment.CallBacks, ViewPager.OnPageChangeListener, View.OnClickListener{
@@ -46,7 +49,7 @@ public class RecipeStepDetailActivity extends AppCompatActivity implements Recip
         setValuesFromBundle(getIntent().getExtras());
         setValuesFromBundle(savedInstanceState);
         //NOTE: line above must have set mRecipeIndex to some positive value, else, there is an error
-        mRecipeIndex = 0 ;
+        mRecipeIndex = 0 ; //TODO: remove this line!
         if(mRecipeIndex < 0){
             finish();
         }
@@ -94,7 +97,16 @@ public class RecipeStepDetailActivity extends AppCompatActivity implements Recip
 
     @Override
     public void onPageSelected(int position) {
+        mViewPager.getCurrentItem();
+        WeakReference<RecipeStepDetailFragment> previous = mPagerAdapter.getFragment(mCurrentStep);
+        if(previous != null && previous.get() != null){
+            previous.get().onHide();
+        }
         mCurrentStep = position;
+        WeakReference<RecipeStepDetailFragment> current = mPagerAdapter.getFragment(mCurrentStep);
+        if(current != null && current.get() != null){
+            current.get().onShow();
+        }
         updateScrollViews();
     }
 
