@@ -86,8 +86,9 @@ public final class RecipeRepo {
     /**
      * This function will take a long time to execute. Run off the main thread.
      * @param loadFromInternet if internet is available, should repo be updated from the internet?
+     * @return true if recipe was downloaded from internet, false otherwise (if internet failed or if internet was not requested)
      */
-    public void updateRepo(boolean loadFromInternet){
+    public boolean updateRepo(boolean loadFromInternet){
         //check if we are online.
         boolean online = loadFromInternet; //initially true if we want to load from internet.
         ConnectivityManager cm = (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -107,6 +108,7 @@ public final class RecipeRepo {
         } else {
             loadRepoFromDisk();
         }
+        return online;
     }
 
     private void loadRepoFromInternet() {

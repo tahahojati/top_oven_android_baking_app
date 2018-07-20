@@ -3,4 +3,6 @@
     <string name="next_recipe_step_content_description">next step</string>
     <string name="previous_recipe_step_content_description">previous step</string>
     <string name="pageview_page_number">%d/%d</string>
+    <string name="error_norecipe_toast">No recipes found. Closing App</string>
+    <string name="error_internet_download">Could not downlod recipes from internet. Please check your internet connection.</string>
 </resources>

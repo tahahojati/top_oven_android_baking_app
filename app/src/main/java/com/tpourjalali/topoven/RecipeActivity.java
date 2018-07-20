@@ -106,4 +106,16 @@ public class RecipeActivity extends AppCompatActivity implements RecipeStepDetai
             goToDetailActivity(stepNumber);
         }
     }
+
+    public static Intent createIntent(int recipeIndex) {
+        return createIntent(recipeIndex, 0);
+    }
+
+    public static Intent createIntent(int recipeIndex, int recipeStepIndex) {
+        Intent intent = new Intent();
+        intent.setClassName("com.tpourjalali.topoven", RecipeActivity.class.getName());
+        intent.putExtra(KEY_RECIPE_INDEX, recipeIndex);
+        intent.putExtra(KEY_RECIPE_STEP_INDEX, recipeStepIndex);
+        return intent;
+    }
 }

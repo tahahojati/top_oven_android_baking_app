@@ -17,8 +17,12 @@ __Important lesson: how to communicate to a fragment managed by a view pager. th
 - [ ] 
 - [ ] Submit movie project
 - [x] Turn off hyperV so you can run the emulator
+- [ ]
+- [ ]
 - [ ] 
-- [x] write public methods for recipe class for online and offline retrieval. 
+- [ ] Write the SplashScreen activity class. 
+- [x] Write the main activity class 
+- [x] Write public methods for recipe class for online and offline retrieval. 
 - [x] write the getupdateDate method for recipeRepo class
 - [x] set launch intent to recipeStepDetailActivity and code the fragment to stream video from the internet. 
 - [x] write psuedocode for the logic.
