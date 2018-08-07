@@ -113,11 +113,13 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(@NonNull RecipeHolder holder, int position) {
-            holder.bind(mRecipes.get(position), position);
+            Log.d(TAG, "mRecipes size: "+mRecipeList.size() +" position: "+position);
+            holder.bind(mRecipeList.get(position), position);
         }
 
         @Override
         public int getItemCount() {
+            Log.d(TAG, "getItemCount returing: "+mRecipeList.size());
             return mRecipeList.size();
         }
 

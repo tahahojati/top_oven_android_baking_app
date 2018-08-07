@@ -74,17 +74,17 @@ public class Recipe implements Serializable{
 
     public static class Ingredient implements Serializable {
         @SerializedName("quantity")
-        private int mQuantity = 3;
+        private float mQuantity = 3;
         @SerializedName("measure")
         private String mMeasure = "CUP";
         @SerializedName("ingredient")
         private String mIngredint;
 
-        public int getQuantity() {
+        public float getQuantity() {
             return mQuantity;
         }
 
-        public void setQuantity(int quantity) {
+        public void setQuantity(float quantity) {
             mQuantity = quantity;
         }
 

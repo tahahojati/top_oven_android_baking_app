@@ -11,12 +11,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <service android:name=".helpers.RepoUpdateTask" android:exported="false"
+            android:permission="android.permission.BIND_JOB_SERVICE"/>
         <activity android:name=".MainActivity" />
         <activity android:name=".RecipeStepDetailActivity" />
-        <activity android:name=".SplashScreenActivity"
+        <activity android:name=".RecipeActivity"
             android:configChanges="screenSize|orientation"/>
         <!--TODO: set launch intent to Splash screen activity.-->
-        <activity android:name=".RecipeActivity"
+        <activity android:name=".SplashScreenActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

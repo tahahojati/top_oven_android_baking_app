@@ -4,6 +4,8 @@ First make layouts for the fragments then combine them for the activity.
 
 __Important lesson: how to communicate to a fragment managed by a view pager. this can become an article.__
 
+__splash screen activity does some tasks in the background and must synchronize appropriately__ 
+
 ### Todo list:
 
 - [ ]
@@ -15,7 +17,7 @@ __Important lesson: how to communicate to a fragment managed by a view pager. th
 - [ ]
 - [ ]
 - [ ] 
-- [ ] Submit movie project
+- [x] Submit movie project
 - [x] Turn off hyperV so you can run the emulator
 - [ ]
 - [ ]

@@ -10,6 +10,7 @@ import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.tpourjalali.topoven.helpers.RepoUpdateTask;
@@ -24,9 +25,9 @@ import java.util.Date;
  */
 public class SplashScreenActivity extends AppCompatActivity{
     private RecipeRepo mRepo;
+    private static final String TAG = SplashScreenActivity.class.getName();
     private static final int DOWNLOAD_JOB_ID = 1000;
     private boolean mResumed = false, mUpdateCompleted = false;
-    private static final String TAG = "SplashScreenActivity";
     private static final IntentFilter UPDATE_INTENT_FILTER = new IntentFilter();
     static{
         UPDATE_INTENT_FILTER.addAction(RepoUpdateTask.RESULT_ACTION);
@@ -36,8 +37,8 @@ public class SplashScreenActivity extends AppCompatActivity{
     private BroadcastReceiver mReceiver = new DownloadResultReceiver();
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
-        super.onCreate(savedInstanceState, persistentState);
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
         //check if you need to update the repo,
         //create an intent service that calls RecipeRepo.updateRepo()
@@ -47,18 +48,27 @@ public class SplashScreenActivity extends AppCompatActivity{
         mRepo = RecipeRepo.getInstance(getApplicationContext());
         Date lastUpdate = mRepo.getLastUpdateDate();
         Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.DATE, -1);
+        //cal.add(Calendar.DATE, -1);
         boolean internet = lastUpdate == null || lastUpdate.before(cal.getTime());
-        Intent serviceIntet = RepoUpdateTask.createIntent(internet);
+        Intent serviceIntent = RepoUpdateTask.createIntent(internet);
         LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(mReceiver, UPDATE_INTENT_FILTER);
-        RepoUpdateTask.enqueueWork(this, RepoUpdateTask.class, DOWNLOAD_JOB_ID, serviceIntet);
+        Log.d(TAG, "enqueuing work in onCreate: ");
+        RepoUpdateTask.enqueueWork(this, RepoUpdateTask.class, DOWNLOAD_JOB_ID, serviceIntent);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        mResumed = true;
+        Log.d(TAG, "onResume, mUpdateCompleted: "+mUpdateCompleted);
         if(mUpdateCompleted) // in case we have come back from background and update has completed in background.
             finishActivityAfterUpdate();
+    }
+
+    @Override
+    protected void onPause() {
+        mResumed = false;
+        super.onPause();
     }
 
     @Override
@@ -68,6 +78,7 @@ public class SplashScreenActivity extends AppCompatActivity{
     }
 
     private void finishActivityAfterUpdate() {
+        Log.d(TAG, "finishActivityAfterUpdate");
         if(mUpdateResultIntent.getBooleanExtra(RepoUpdateTask.SUCCESS, false))
             Toast.makeText(this, getString(R.string.error_internet_download), Toast.LENGTH_LONG).show();
         if(mRepo.getRecipeCount() != 0){
@@ -79,6 +90,7 @@ public class SplashScreenActivity extends AppCompatActivity{
 
         @Override
         public void onReceive(Context context, Intent intent) {
+            Log.d(TAG, "onReceive");
             mUpdateResultIntent = intent;
             mUpdateCompleted = true;
             if(mResumed){

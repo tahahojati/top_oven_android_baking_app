@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v4.app.JobIntentService;
 import android.support.v4.content.LocalBroadcastManager;
+import android.util.Log;
 
 import com.tpourjalali.topoven.model.RecipeRepo;
 
@@ -15,6 +16,7 @@ public class RepoUpdateTask extends JobIntentService {
     public static final String RESULT_ACTION = RepoUpdateTask.class.getName()+"."+"result";
     @Override
     protected void onHandleWork(@NonNull Intent intent) {
+        Log.d(TAG, "onHandleWork");
         RecipeRepo repo = RecipeRepo.getInstance(getApplicationContext());
         boolean internet = intent.getBooleanExtra(KEY_INTERNET, false);
         boolean resultInternet = repo.updateRepo(internet);
@@ -22,6 +24,7 @@ public class RepoUpdateTask extends JobIntentService {
         Intent resultIntent = new Intent(RESULT_ACTION);
         resultIntent.putExtra(SUCCESS, internet == resultInternet);
         resultIntent.putExtra(INTERNET_LOAD, resultInternet);
+        Log.d(TAG, "sending Broadcast "+resultIntent.toString());
         lbm.sendBroadcast(resultIntent);
         // sendBroadcast(); //not sure about this function.
     }

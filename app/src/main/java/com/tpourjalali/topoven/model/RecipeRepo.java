@@ -35,10 +35,10 @@ public final class RecipeRepo {
     private static final DateFormat REPO_PREF_DATE_FORMAT = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG);
     private Date mLastUpdateDate = null;
     private Context mContext;
-    private static final String BASE_URL = "https://d17h27t6h515a5.cloudfront.net/topher/2017/May/59121517_baking/baking.json";
+    private static final String BASE_URL = "https://d17h27t6h515a5.cloudfront.net/topher/2017/May/59121517_baking/";
     private Retrofit mRetrofit;
     private RecipeInternetService mRecipeInternetService;
-    private List<Recipe> mRecipeList = null;
+    private List<Recipe> mRecipeList = new ArrayList<>();
     private final File mDataFile;
 
     /**
@@ -113,9 +113,13 @@ public final class RecipeRepo {
 
     private void loadRepoFromInternet() {
         try {
+            Log.d(TAG, "loadReporFromInternet");
             Response<List<Recipe>> response = mRecipeInternetService.getRecipeList().execute();
             if(response.isSuccessful()){
+                Log.d(TAG, response.body().get(0).getName());
                 mRecipeList = response.body();
+                if(mRecipeList == null)
+                    mRecipeList = new ArrayList<>();
                 mLastUpdateDate = new Date();
             } else {
                 Log.d(TAG, "Download of recipes was not successfull " + response.code() +": "+response.errorBody());
@@ -173,7 +177,7 @@ public final class RecipeRepo {
             return mRecipeList.size();
     }
     public interface RecipeInternetService{
-        @GET
+        @GET("baking.json")
         Call<List<Recipe>> getRecipeList();
     }
 
