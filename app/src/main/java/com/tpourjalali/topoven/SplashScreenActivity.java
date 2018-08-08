@@ -47,9 +47,10 @@ public class SplashScreenActivity extends AppCompatActivity{
         setContentView(R.layout.activity_splash_screen);
         mRepo = RecipeRepo.getInstance(getApplicationContext());
         Date lastUpdate = mRepo.getLastUpdateDate();
+        boolean internet = false;
         Calendar cal = Calendar.getInstance();
-        //cal.add(Calendar.DATE, -1);
-        boolean internet = lastUpdate == null || lastUpdate.before(cal.getTime());
+        cal.add(Calendar.DATE, -1);
+        internet = lastUpdate == null || lastUpdate.before(cal.getTime());
         Intent serviceIntent = RepoUpdateTask.createIntent(internet);
         LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(mReceiver, UPDATE_INTENT_FILTER);
         Log.d(TAG, "enqueuing work in onCreate: ");
@@ -79,7 +80,7 @@ public class SplashScreenActivity extends AppCompatActivity{
 
     private void finishActivityAfterUpdate() {
         Log.d(TAG, "finishActivityAfterUpdate");
-        if(mUpdateResultIntent.getBooleanExtra(RepoUpdateTask.SUCCESS, false))
+        if(!mUpdateResultIntent.getBooleanExtra(RepoUpdateTask.SUCCESS, false))
             Toast.makeText(this, getString(R.string.error_internet_download), Toast.LENGTH_LONG).show();
         if(mRepo.getRecipeCount() != 0){
             startActivity(new Intent(this, MainActivity.class));

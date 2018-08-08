@@ -4,7 +4,6 @@ package com.tpourjalali.topoven;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
@@ -57,7 +56,7 @@ public class RecipeActivity extends AppCompatActivity implements RecipeStepDetai
         FragmentManager fm = getSupportFragmentManager();
         if(fm.findFragmentById(R.id.step_detail_fragment) == null)
             fm.beginTransaction()
-                    .replace(R.id.step_detail_fragment, RecipeStepDetailFragment.newInstance(mRecipe.getRecipeSteps().get(mCurrentStep)))
+                    .replace(R.id.step_detail_fragment, RecipeStepDetailFragment.newInstance(mRecipe.getSteps().get(mCurrentStep)))
                     .commit();
     }
 
@@ -93,7 +92,7 @@ public class RecipeActivity extends AppCompatActivity implements RecipeStepDetai
     private void replaceDetailFragment(int stepIndex){
         FragmentManager fm = getSupportFragmentManager();
         fm.beginTransaction()
-                .replace(R.id.step_detail_fragment, RecipeStepDetailFragment.newInstance(mRecipe.getRecipeSteps().get(stepIndex)))
+                .replace(R.id.step_detail_fragment, RecipeStepDetailFragment.newInstance(mRecipe.getSteps().get(stepIndex)))
                 .commit();
     }
 

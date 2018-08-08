@@ -24,7 +24,7 @@ public class RepoUpdateTask extends JobIntentService {
         Intent resultIntent = new Intent(RESULT_ACTION);
         resultIntent.putExtra(SUCCESS, internet == resultInternet);
         resultIntent.putExtra(INTERNET_LOAD, resultInternet);
-        Log.d(TAG, "sending Broadcast "+resultIntent.toString());
+        Log.d(TAG, "sending Broadcast "+resultIntent.toString()+"    "+resultIntent.getExtras().toString());
         lbm.sendBroadcast(resultIntent);
         // sendBroadcast(); //not sure about this function.
     }

@@ -15,11 +15,11 @@
             android:permission="android.permission.BIND_JOB_SERVICE"/>
         <activity android:name=".MainActivity" />
         <activity android:name=".RecipeStepDetailActivity" />
-        <activity android:name=".RecipeActivity"
-            android:configChanges="screenSize|orientation"/>
+        <activity android:name=".RecipeActivity" />
         <!--TODO: set launch intent to Splash screen activity.-->
         <activity android:name=".SplashScreenActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:configChanges="screenSize|orientation">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

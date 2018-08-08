@@ -19,16 +19,10 @@ public class Recipe implements Serializable{
     @SerializedName("image")
     private String mImage = "" ;
     @SerializedName("steps")
-    private List<RecipeStep> mRecipeSteps = new ArrayList<>(3);
+    private List<RecipeStep> mRecipeSteps;// = new ArrayList<>(3);
     @SerializedName("ingredients")
-    private List<Ingredient> mIngredients = new ArrayList<>(2);
-    public Recipe(){
-        mRecipeSteps.add(new RecipeStep());
-        mRecipeSteps.add(new RecipeStep());
-        mRecipeSteps.add(new RecipeStep());
-        mIngredients.add(new Ingredient());
-        mIngredients.add(new Ingredient());
-    }
+    private List<Ingredient> mIngredients;// = new ArrayList<>(2);
+    public Recipe(){}
 
     public String getName() {
         return mName;
@@ -55,11 +49,11 @@ public class Recipe implements Serializable{
     }
 
     @NonNull
-    public List<RecipeStep> getRecipeSteps() {
+    public List<RecipeStep> getSteps() {
         return mRecipeSteps;
     }
 
-    public void setRecipeSteps(List<RecipeStep> recipeSteps) {
+    public void setSteps(List<RecipeStep> recipeSteps) {
         mRecipeSteps = recipeSteps;
     }
 
@@ -105,11 +99,16 @@ public class Recipe implements Serializable{
         }
     }
     public static class RecipeStep implements Serializable {
-        private int mId = 0;
-        private String mShortDescription ="Recipe Introduction" ;
-        private String mDescription = "Recipe Introduction";
-        private String mVideoUrl = "https://d17h27t6h515a5.cloudfront.net/topher/2017/April/58ffd974_-intro-creampie/-intro-creampie.mp4";
-        private String mThumbnailUrl = "";
+        @SerializedName("id")
+        private int mId; // = 0;
+        @SerializedName("shortDescription")
+        private String mShortDescription; // ="Recipe Introduction" ;
+        @SerializedName("description")
+        private String mDescription; // = "Recipe Introduction";
+        @SerializedName("videoURL")
+        private String mVideoUrl; // = "https://d17h27t6h515a5.cloudfront.net/topher/2017/April/58ffd974_-intro-creampie/-intro-creampie.mp4";
+        @SerializedName("thumbnailURL")
+        private String mThumbnailUrl ;
 
         public int getId() {
             return mId;
@@ -135,6 +134,7 @@ public class Recipe implements Serializable{
             mDescription = description;
         }
 
+        @Nullable
         public String getVideoUrl() {
             return mVideoUrl;
         }

@@ -46,6 +46,7 @@ public class RecipeStepDetailFragment extends Fragment implements FragmentHideLi
     public CardView mRecipeStepDetailCardView;
     private SimpleExoPlayer mExoPlayer;
     private boolean mPlayWhenReady = false;
+    private boolean mEffemeralPlayWhenReady = false;
     private CallBacks mCallBacks;
 
     @Override
@@ -75,8 +76,12 @@ public class RecipeStepDetailFragment extends Fragment implements FragmentHideLi
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
-        outState.putBoolean(KEY_PLAY_WHEN_READY, mPlayWhenReady);
-        outState.putLong(KEY_CURRENT_POSITION, mExoPlayer.getCurrentPosition());
+        if(mExoPlayer != null) {
+            //Note: mExoPlayer can be null when there is no video url to play.
+            outState.putBoolean(KEY_PLAY_WHEN_READY, mPlayWhenReady);
+            Log.d(TAG, "Current position: "+ mExoPlayer.getCurrentPosition());
+            outState.putLong(KEY_CURRENT_POSITION, mExoPlayer.getCurrentPosition());
+        }
     }
 
     @Nullable
@@ -90,6 +95,7 @@ public class RecipeStepDetailFragment extends Fragment implements FragmentHideLi
         mRecipeStepDetailTextView = v.findViewById(R.id.recipe_step_details_textview);
 
         initFromBundle(getArguments());
+        initFromBundle(savedInstanceState);
         if(mRecipeStep == null){
             throw new RuntimeException("You must provide a recipe step as argument to this fragment");
         }
@@ -148,7 +154,7 @@ public class RecipeStepDetailFragment extends Fragment implements FragmentHideLi
 
     private void initializeVideoPlayer() {
         String url = mRecipeStep.getVideoUrl();
-        if(url == null ) {
+        if(url == null || url.equals("")) {
             mPlayerView.setVisibility(View.GONE);
             mRecipeStepDetailTextView.setVisibility(View.VISIBLE);
             return;
@@ -163,7 +169,7 @@ public class RecipeStepDetailFragment extends Fragment implements FragmentHideLi
         mExoPlayer.addListener(new DefaultEventListener() {
             @Override
             public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
-                mPlayWhenReady = playWhenReady;
+                mEffemeralPlayWhenReady = playWhenReady;
                 Log.d(TAG, "Video State listener, playwhen ready: "+mPlayWhenReady);
             }
         });
@@ -194,6 +200,7 @@ public class RecipeStepDetailFragment extends Fragment implements FragmentHideLi
     @Override
     public void onHide() {
         if (mExoPlayer != null){
+            mPlayWhenReady = mEffemeralPlayWhenReady;
             mExoPlayer.setPlayWhenReady(false);
         }
     }

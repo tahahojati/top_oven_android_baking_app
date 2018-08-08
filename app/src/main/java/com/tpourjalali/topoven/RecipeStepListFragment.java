@@ -1,6 +1,5 @@
 package com.tpourjalali.topoven;
 
-import android.app.ActivityManager;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -66,7 +65,7 @@ public class RecipeStepListFragment extends Fragment{
         View v = inflater.inflate(R.layout.recycler_view, container, false);
 
         mRecyclerView = v.findViewById(R.id.recycler_view);
-        mRecyclerView.setAdapter(new StepAdapter(mRepo.getRecipe(mRecipeIndex).getRecipeSteps()));
+        mRecyclerView.setAdapter(new StepAdapter(mRepo.getRecipe(mRecipeIndex).getSteps()));
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
 
         return v;
