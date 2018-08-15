@@ -3,6 +3,7 @@
     package="com.tpourjalali.topoven">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
 
     <application
         android:allowBackup="true"
@@ -11,21 +12,39 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <service android:name=".helpers.RepoUpdateTask" android:exported="false"
-            android:permission="android.permission.BIND_JOB_SERVICE"/>
+        <service
+            android:name=".helpers.RepoUpdateTask"
+            android:exported="false"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+
         <activity android:name=".MainActivity" />
         <activity android:name=".RecipeStepDetailActivity" />
         <activity android:name=".RecipeActivity" />
-        <!--TODO: set launch intent to Splash screen activity.-->
-        <activity android:name=".SplashScreenActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:configChanges="screenSize|orientation">
+        <activity
+            android:name=".SplashScreenActivity"
+            android:configChanges="screenSize|orientation"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <receiver android:name=".BakingWidgetProvider">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/baking_widget_info" />
+        </receiver>
+
+        <service
+            android:name=".BakingWidgetRemoteViewsService"
+            android:enabled="true"
+            android:exported="true"/>
     </application>
 
 </manifest>
