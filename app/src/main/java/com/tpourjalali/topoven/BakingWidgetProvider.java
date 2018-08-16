@@ -5,8 +5,16 @@ import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
+import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
 import android.widget.RemoteViews;
+
+import com.tpourjalali.topoven.model.Recipe;
+import com.tpourjalali.topoven.model.RecipeRepo;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Implementation of App Widget functionality.
@@ -18,15 +26,23 @@ public class BakingWidgetProvider extends AppWidgetProvider {
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
         Log.d(TAG, "updateAppWidget was called");
-        CharSequence widgetText = context.getString(R.string.appwidget_text);
+        RecipeRepo repo = RecipeRepo.getInstance(context);
+        if(!repo.isInitialized())
+            repo.updateRepo(false);
         // Construct the RemoteViews object
+        Recipe recipe = repo.getLastRecipe();
+        List<String> ingredientList = recipe.getIngredients().stream().map(x -> x.getIngredint()).collect(Collectors.toList());
+
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.baking_widget);
-        Intent adapterIntent = new Intent(context, BakingWidgetRemoteViewsService.class);
-        views.setRemoteAdapter(R.id.appwidget_list_view, adapterIntent);
-        Intent intent = new Intent(context, BakingWidgetProvider.class);
-        intent.setAction(RECIPE_CLICK_ACTION);
-        PendingIntent pi = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_IMMUTABLE); //todo: have to increment request code!
-        views.setPendingIntentTemplate(R.id.appwidget_list_view, pi);
+        if(recipe == null){
+            views.setViewVisibility(R.id.no_recipe_error_tv, View.VISIBLE);
+            views.setViewVisibility(R.id.tv_widget_ingredient_list, View.GONE);
+        } else {
+            views.setViewVisibility(R.id.no_recipe_error_tv, View.GONE);
+            views.setViewVisibility(R.id.tv_widget_ingredient_list, View.VISIBLE);
+            CharSequence cs = TextUtils.join("\n", ingredientList);
+            views.setTextViewText(R.id.tv_widget_ingredient_list, cs);
+        }
 
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);

@@ -3,10 +3,8 @@ package com.tpourjalali.topoven.model;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.icu.text.DateFormat;
-import android.icu.text.SimpleDateFormat;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
@@ -32,14 +30,17 @@ public final class RecipeRepo {
     private static final String TAG = "RecipeRepo";
     private static final String KEY_RECIPE_REPO = "recipe-repo";
     private static final String KEY_LAST_UPDATE = "last update";
+    private static final String KEY_LAST_VIEWED_RECIPE_INDEX = "last viewed recipe";
     private static final DateFormat REPO_PREF_DATE_FORMAT = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG);
     private Date mLastUpdateDate = null;
     private Context mContext;
+    private boolean mInitialized = false;
     private static final String BASE_URL = "https://d17h27t6h515a5.cloudfront.net/topher/2017/May/59121517_baking/";
     private Retrofit mRetrofit;
     private RecipeInternetService mRecipeInternetService;
     private List<Recipe> mRecipeList = new ArrayList<>();
     private final File mDataFile;
+    private int mLastViewedRecipeIndex = -1;
 
     /**
      * first call to this function may be long running.
@@ -63,6 +64,10 @@ public final class RecipeRepo {
         loadLastUpdateDate();
     }
     public Date getLastUpdateDate(){return mLastUpdateDate;}
+
+    public boolean isInitialized() {
+        return mInitialized;
+    }
 
     private void saveLastUpdateDate(){
         if(mLastUpdateDate == null)
@@ -108,6 +113,7 @@ public final class RecipeRepo {
         } else {
             loadRepoFromDisk();
         }
+        mInitialized = true;
         return online;
     }
 
@@ -175,6 +181,26 @@ public final class RecipeRepo {
             return 0;
         else
             return mRecipeList.size();
+    }
+    private void retrieveLastViewedRecipeIndex(){
+        SharedPreferences pm = mContext.getSharedPreferences(KEY_RECIPE_REPO, Context.MODE_PRIVATE);
+        mLastViewedRecipeIndex = pm.getInt(KEY_LAST_VIEWED_RECIPE_INDEX, -1);
+    }
+    public void setLastViewedRecipeIndex(int index){
+        mLastViewedRecipeIndex = index;
+        SharedPreferences pm = mContext.getSharedPreferences(KEY_RECIPE_REPO, Context.MODE_PRIVATE);
+        pm.edit()
+                .putInt(KEY_LAST_VIEWED_RECIPE_INDEX, index)
+                .apply();
+    }
+    public Recipe getLastRecipe(){
+        if(getRecipeCount() == 0)
+            return null;
+        if(mLastViewedRecipeIndex == -1)
+            retrieveLastViewedRecipeIndex();
+        if(mLastViewedRecipeIndex == -1)
+            return getRecipe(0);
+        return getRecipe(mLastViewedRecipeIndex);
     }
     public interface RecipeInternetService{
         @GET("baking.json")

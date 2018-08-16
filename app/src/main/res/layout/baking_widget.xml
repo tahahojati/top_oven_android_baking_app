@@ -1,13 +1,35 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#09C"
     android:padding="@dimen/widget_margin">
 
-    <ListView
-        android:id="@+id/appwidget_list_view"
+    <TextView
+        android:id="@+id/appwidget_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:text="@string/app_name"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"/>
+    <!--<View-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_below="@id/appwidget_text"-->
+        <!--android:layout_height="1dp"-->
+        <!--android:id="@+id/separator"-->
+        <!--android:background="@android:color/black"-->
+        <!--/>-->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/appwidget_text"
+        android:id="@+id/tv_widget_ingredient_list"/>
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="8dp" />
+        android:text="@string/no_recipe_widget_error"
+        android:visibility="gone"
+        android:layout_below="@id/appwidget_text"
+        android:id="@+id/no_recipe_error_tv"/>
 
-</FrameLayout>
+</RelativeLayout>

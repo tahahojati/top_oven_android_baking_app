@@ -41,10 +41,6 @@
                 android:resource="@xml/baking_widget_info" />
         </receiver>
 
-        <service
-            android:name=".BakingWidgetRemoteViewsService"
-            android:enabled="true"
-            android:exported="true"/>
     </application>
 
 </manifest>

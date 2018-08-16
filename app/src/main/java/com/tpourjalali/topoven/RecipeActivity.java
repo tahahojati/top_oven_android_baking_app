@@ -21,6 +21,7 @@ public class RecipeActivity extends AppCompatActivity implements RecipeStepDetai
     private int mRecipeIndex = -1;
     private int mCurrentStep = 0;
     private Recipe mRecipe;
+    private RecipeRepo mRecipeRepo;
     private static final String KEY_RECIPE_INDEX = "recipe_index";
     private static final String KEY_RECIPE_STEP_INDEX = "recipe step";
 
@@ -42,7 +43,9 @@ public class RecipeActivity extends AppCompatActivity implements RecipeStepDetai
             //tablet, have RecipeStepListFragment and RecipeStepDetailFragment
             mTwoPane = true;
         }
-        mRecipe = RecipeRepo.getInstance(this).getRecipe(mRecipeIndex);
+        mRecipeRepo = RecipeRepo.getInstance(this);
+        mRecipe = mRecipeRepo.getRecipe(mRecipeIndex);
+        mRecipeRepo.setLastViewedRecipeIndex(mRecipeIndex);
 
         setupMasterFragment();
         setupDetailFragment();

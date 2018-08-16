@@ -72,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView = findViewById(R.id.recycler_view);
     }
     private void recipeClicked(int itemPosition) {
+        mRecipeRepo.setLastViewedRecipeIndex(itemPosition);
         Intent intent = RecipeActivity.createIntent(itemPosition);
         startActivity(intent);
     }

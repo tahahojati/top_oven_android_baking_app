@@ -80,6 +80,7 @@ public class SplashScreenActivity extends AppCompatActivity{
 
     private void finishActivityAfterUpdate() {
         Log.d(TAG, "finishActivityAfterUpdate");
+        notifyWidgets();
         if(!mUpdateResultIntent.getBooleanExtra(RepoUpdateTask.SUCCESS, false))
             Toast.makeText(this, getString(R.string.error_internet_download), Toast.LENGTH_LONG).show();
         if(mRepo.getRecipeCount() != 0){
@@ -87,6 +88,11 @@ public class SplashScreenActivity extends AppCompatActivity{
         }
         finish();
     }
+
+    private void notifyWidgets() {
+        //todo: implement method
+    }
+
     private class DownloadResultReceiver extends BroadcastReceiver{
 
         @Override
